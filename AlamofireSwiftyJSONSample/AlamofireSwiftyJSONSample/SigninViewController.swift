@@ -118,100 +118,8 @@ class SigninViewController: UIViewController {
             }
         }
     }
-    
-    //    func customLabel(str: String, label: UILabel){
-    //        let str = str
-    //        let strPieces = str.components(separatedBy: "#")
-    //        var ptWordLocation = CGPoint(x: 0.0, y: 0.0)
-    //        if (strPieces.count > 1) {
-    //            //Loop the parts of the string
-    //            for s in strPieces{
-    //                //Check for empty string
-    //                if (s.isEmpty == false) {
-    //                    let lbl = UILabel()
-    //                    lbl.textAlignment = .center
-    //                    lbl.textColor = UIColor(colorLiteralRed: 111/255, green: 126/255, blue: 148/255, alpha: 1)
-    //                    lbl.isUserInteractionEnabled = s.contains("<li>")
-    //                    lbl.text = s.replacingOccurrences(of: "<li>", with: "")
-    //                    if (s.contains("<li>")) {
-    //                        lbl.textColor = UIColor.white
-    //                        //Set tap gesture for this clickable text:
-    //                        if label == lblSignup {
-    //                            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(SigninViewController.tapOnToShowSignup(_:)))
-    //                            gesture.minimumPressDuration = 0.001
-    //                            lbl.addGestureRecognizer(gesture)
-    //                        } else {
-    //                            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(SigninViewController.tapOnToShowTerms(_:)))
-    //                            gesture.minimumPressDuration = 0.001
-    //                            lbl.addGestureRecognizer(gesture)
-    //                        }
-    //                    } else {
-    //                        lbl.isUserInteractionEnabled = s.contains("<lu>")
-    //                        lbl.text = s.replacingOccurrences(of: "<lu>", with: "")
-    //                        if (s.contains("<lu>")) {
-    //                            lbl.textColor = UIColor.white
-    //                            //Set tap gesture for this clickable text:
-    //                            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(SigninViewController.tapOnToShowPrivacyPolicy(_:)))
-    //                            gesture.minimumPressDuration = 0.001
-    //                            lbl.addGestureRecognizer(gesture)
-    //                        }
-    //                    }
-    //                    lbl.sizeToFit()
-    //                    //Lay out the labels so it forms a complete sentence again
-    //                    if (self.view.frame.width < ptWordLocation.x + lbl.bounds.size.width) {
-    //                        ptWordLocation.x = 0.0
-    //                        ptWordLocation.y += lbl.frame.size.height;
-    //                        lbl.text = lbl.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-    //                    }
-    //                    lbl.frame = CGRect(x: ptWordLocation.x, y: ptWordLocation.y, width: lbl.frame.size.width, height: lbl.frame.size.height)
-    //                    lbl.textAlignment = .center
-    //                    label.addSubview(lbl)
-    //                    //Update the horizontal width
-    //                    ptWordLocation.x += lbl.frame.size.width
-    //                }
-    //            }
-    //        }
-    //    }
-    //
-    //    func tapOnToShowSignup(_ recognizer : UILongPressGestureRecognizer){
-    //        if let label = recognizer.view as? UILabel {
-    //            if recognizer.state == .began {
-    //                label.textColor = UIColor.lightGray
-    //                let signupVC = storyboard?.instantiateViewController(withIdentifier: "SignupVC")
-    //                present(signupVC!, animated: true, completion: nil)
-    //            }
-    //            if recognizer.state == .ended {
-    //                //label.textColor = UIColor.white
-    //            }
-    //        }
-    //    }
-    //
-    //    func tapOnToShowTerms(_ recognizer : UILongPressGestureRecognizer){
-    //        if let label = recognizer.view as? UILabel {
-    //            if recognizer.state == .began {
-    //                label.textColor = UIColor.lightGray
-    //                let termsVC = storyboard?.instantiateViewController(withIdentifier: "TermsVC")
-    //                present(termsVC!, animated: true, completion: nil)
-    //            }
-    //            if recognizer.state == .ended {
-    //                //label.textColor = UIColor.white
-    //            }
-    //        }
-    //    }
-    //
-    //    func tapOnToShowPrivacyPolicy(_ recognizer : UILongPressGestureRecognizer){
-    //        if let label = recognizer.view as? UILabel {
-    //            if recognizer.state == .began {
-    //                label.textColor = UIColor.lightGray
-    //                let privacyPolicyVC = storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicyVC")
-    //                present(privacyPolicyVC!, animated: true, completion: nil)
-    //            }
-    //            if recognizer.state == .ended {
-    //                //label.textColor = UIColor.white
-    //            }
-    //        }
-    //    }
 }
+
 extension UITapGestureRecognizer {
     
     func didTapAttributedTextInLabel(label: UILabel, inRange targetRange: NSRange) -> Bool {
@@ -244,6 +152,7 @@ extension UITapGestureRecognizer {
     }
     
 }
+
 extension String {
     func nsRange(from range: Range<String.Index>) -> NSRange {
         let from = range.lowerBound.samePosition(in: utf16)

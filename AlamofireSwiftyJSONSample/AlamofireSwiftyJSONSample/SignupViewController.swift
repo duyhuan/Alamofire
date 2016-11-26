@@ -20,6 +20,9 @@ class SignupViewController: UIViewController {
     var json: JSON = nil
     var error: String? = nil
     
+    var moreString: NSAttributedString? = nil
+    var attributedText: NSMutableAttributedString? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignup.layer.cornerRadius = 5
@@ -58,55 +61,28 @@ class SignupViewController: UIViewController {
         }
     }
     
-    func customLabel(){
-        let str = "Already have an account? #<li>Sign In#"
-        let strPieces = str.components(separatedBy: "#")
-        var ptWordLocation = CGPoint(x: 0.0, y: 0.0)
-        if (strPieces.count > 1) {
-            //Loop the parts of the string
-            for s in strPieces{
-                //Check for empty string
-                if (s.isEmpty == false) {
-                    let lbl = UILabel()
-                    lbl.textColor = UIColor(colorLiteralRed: 111/255, green: 126/255, blue: 148/255, alpha: 1)
-                    lbl.isUserInteractionEnabled = s.contains("<li>")
-                    lbl.text = s.replacingOccurrences(of: "<li>", with: "")
-                    if (s.contains("<li>")) {
-                        lbl.textColor = UIColor.white
-                        //Set tap gesture for this clickable text:
-                        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(SignupViewController.tapOn(_:)))
-                        gesture.minimumPressDuration = 0.001
-                        lbl.addGestureRecognizer(gesture)
-                    }
-                    lbl.sizeToFit()
-                    
-                    //Lay out the labels so it forms a complete sentence again
-                    if (self.view.frame.width < ptWordLocation.x + lbl.bounds.size.width) {
-                        ptWordLocation.x = 0.0
-                        ptWordLocation.y += lbl.frame.size.height;
-                        lbl.text = lbl.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    }
-                    lbl.frame = CGRect(x: ptWordLocation.x, y: ptWordLocation.y, width: lbl.frame.size.width, height: lbl.frame.size.height)
-                    self.lblSignin.addSubview(lbl)
-                    //Update the horizontal width
-                    ptWordLocation.x += lbl.frame.size.width
-                }
-            }
-        }
+    func customLabel() {
+        lblSignin.font = UIFont.systemFont(ofSize: 16)
+        lblSignin.center = self.view.center
+        attributedText = NSMutableAttributedString(string: "Already have an account? ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)])
+        moreString = NSAttributedString(string: "Sign In", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.white])
+        attributedText?.append(moreString!)
+        let paragraphStyle = NSMutableParagraphStyle()
+        attributedText?.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, (attributedText?.string.characters.count)!))
+        lblSignin.attributedText = attributedText
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignupViewController.tapResponse(_:)))
+        lblSignin.addGestureRecognizer(tapGesture)
+        lblSignin.isUserInteractionEnabled =  true
+        lblSignin.numberOfLines = 0
+        lblSignin.textAlignment = .center
     }
     
-    func tapOn(_ recognizer : UILongPressGestureRecognizer){
-        if let label = recognizer.view as? UILabel {
-            if recognizer.state == .began {
-                label.textColor = UIColor.lightGray
-                let signinVC = storyboard?.instantiateViewController(withIdentifier: "SigninVC")
-                present(signinVC!, animated: true, completion: nil)
-            }
-            if recognizer.state == .ended {
-                label.textColor = UIColor.white
-            }
+    func tapResponse(_ recognizer: UITapGestureRecognizer) {
+        let moreStringRange = attributedText?.string.range(of: (moreString?.string)!)
+        let nsra = attributedText?.string.nsRange(from: moreStringRange!)
+        if recognizer.didTapAttributedTextInLabel(label: lblSignin, inRange: nsra!) {
+            let signinVC = storyboard?.instantiateViewController(withIdentifier: "SigninVC")
+            present(signinVC!, animated: true, completion: nil)
         }
     }
-    
-
 }
